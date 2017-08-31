@@ -3,6 +3,8 @@ import os
 import sys
 import argparse
 from subprocess import check_call, check_output
+from http.server import (HTTPServer, CGIHTTPRequestHandler,
+                         SimpleHTTPRequestHandler, test as test_orig)
 
 
 python_version = "python3"
@@ -34,6 +36,21 @@ def main():
         print("Available commands: \n * " + "\n * ".join(available_methods))
         sys.exit()
     method(*args_list, **args_dict)
+
+
+class CORSRequestHandler (SimpleHTTPRequestHandler):
+    """
+    Simple http server with fix for the Cross-Origin Resource Sharing (CORS)
+    block, so that both front- and back-ends can be hosted from the same machine
+    for development purposes. See also:
+    https://stackoverflow.com/questions/21956683/python-enable-access-control
+    -on-simple-http-server
+
+    """
+
+    def end_headers (self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        SimpleHTTPRequestHandler.end_headers(self)
 
 
 class TaskBase():
@@ -71,6 +88,12 @@ class TaskBase():
                "requirements/django.txt"]
         return check_output(cmd)
 
+    def install_angularjs_deps(self):
+        print("Installing angularjs dependencies via yarn")
+        cmd = ["yarn", "install", "--modules-folder",
+               "angularjs_frontend/static/node_modules"]
+        return check_output(cmd)
+
 
 class Tasks(TaskBase):
     """Tasks meant to be callable from the cli. """
@@ -78,6 +101,7 @@ class Tasks(TaskBase):
     def install(self):
         self.install_os_deps()
         self.install_django_deps()
+        self.install_angularjs_deps()
         print("Done")
 
     def schema(self, filetype="png"):
@@ -97,6 +121,7 @@ class Tasks(TaskBase):
         self.manage(["makemigrations"])
         self.manage(["migrate"])
         self.manage(["runserver"])
+
 
 if __name__ == "__main__":
     sys.exit(main())
