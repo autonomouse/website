@@ -21,6 +21,13 @@ autonomouse_schema.png
 *~
 .idea/
 
+# Static files
+django_backend/static/*
+!django_backend/static/css
+!django_backend/static/img
+!django_backend/static/js
+!django_backend/static/partials
+
 # NPM
 npm-debug.log
 node_modules/
@@ -33,5 +40,6 @@ bower_components/
 .cache
 
 # tmp
+django_backend/db.sqlite3
 djdo.py
 flaskdo.py

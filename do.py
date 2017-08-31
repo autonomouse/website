@@ -5,6 +5,9 @@ import argparse
 from subprocess import check_call, check_output
 
 
+python_version = "python3"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("command")
@@ -29,6 +32,7 @@ def main():
     except AttributeError:
         print("There is no '" + args.command + "' command.")
         print("Available commands: \n * " + "\n * ".join(available_methods))
+        sys.exit()
     method(*args_list, **args_dict)
 
 
@@ -47,6 +51,12 @@ class TaskBase():
     def mkdir_p(self, directory):
         if not os.path.exists(directory):
             os.makedirs(directory)
+
+    def manage(self, cmd):
+        print("Running the '" + " ".join(cmd) + "' management command")
+        manage_cmd = [python_version, "django_backend/manage.py"]
+        manage_cmd.extend(cmd)
+        return check_output(manage_cmd)
 
     def install_os_deps(self):
         print("Installing dependencies via apt")
@@ -70,6 +80,23 @@ class Tasks(TaskBase):
         self.install_django_deps()
         print("Done")
 
+    def schema(self, filetype="png"):
+        """Generates an image depicting the current database schema. """
+        dot = self.manage([
+            "graph_models", "-X", "TimeStampedBaseModel", "-E", "-a"])
+        with open(application + ".dot", "wb") as text_file:
+            text_file.write(dot)
+        self.run(["dot", "-T" + filetype, application + ".dot", "-o",
+                  application + "_schema." + filetype])
+        self.run(["rm", application + ".dot"])
+        print("Schema generated at {0}_schema.{1}".format(
+              application, filetype))
+
+    def runserver(self):
+        self.manage(["collectstatic", "--noinput"])
+        self.manage(["makemigrations"])
+        self.manage(["migrate"])
+        self.manage(["runserver"])
 
 if __name__ == "__main__":
     sys.exit(main())
