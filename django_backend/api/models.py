@@ -47,6 +47,9 @@ class Section(TimeStampedBaseModel):
     def __unicode__(self):
         return self.uuid
 
+    def __str__(self):
+        return self.name
+
 
 class Statement(TimeStampedBaseModel):
     uuid = models.UUIDField(
@@ -72,3 +75,6 @@ class Statement(TimeStampedBaseModel):
 
     def __unicode__(self):
         return self.uuid
+
+    def __str__(self):
+        return self.title
