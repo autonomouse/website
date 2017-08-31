@@ -9,7 +9,7 @@ app.controller('controller', [
                 $scope.statements = response;
             } else{
                 $q.all([response.$promise]).then(function(data) {
-                    $scope.statements = data;  // [0];
+                    $scope.statements = data[0];
                 });
             };
         };
