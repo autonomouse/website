@@ -11,5 +11,3 @@ app.factory('SectionService', ['$resource', function($resource) {
 app.factory('StatementService', ['$resource', function($resource) {
     return $resource(url + 'statement/:statement', {statement: "@statement"});
 }]);
-
-

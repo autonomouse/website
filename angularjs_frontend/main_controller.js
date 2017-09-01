@@ -1,7 +1,7 @@
 
 app.controller('main_controller', [
-    '$scope', 'PageService', '$location', '$q',
-    function($scope, PageService, $location, $q) {
+    '$scope', 'PageService', '$location', '$q', '$rootScope',
+    function($scope, PageService, $location, $q, $rootScope) {
 
         $scope.SiteName = "Darren Hoyland";
 
@@ -16,7 +16,9 @@ app.controller('main_controller', [
 
         $scope.isActive = function (viewLocation) {
               return viewLocation === $location.path();
-          };
+        };
+
+        $rootScope.page = $location.path();
     }
 ]);
 

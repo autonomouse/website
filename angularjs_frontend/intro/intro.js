@@ -1,7 +1,7 @@
 
 app.controller('intro_controller', [
-    '$scope', 'StatementService', '$interval', '$q',
-    function($scope, StatementService, $interval, $q) {
+    '$scope', 'StatementService', '$location', '$interval', '$q', '$rootScope',
+    function($scope, StatementService, $location, $interval, $q, $rootScope) {
 
         $scope.reload = function () {
             var response = StatementService.query();
@@ -16,6 +16,8 @@ app.controller('intro_controller', [
         };
         $scope.reload();
         //$interval($scope.reload, 1000);
+        $rootScope.page = $location.path();
     }
+
 ]);
 

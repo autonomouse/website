@@ -20,7 +20,7 @@
       <a class="navbar-brand" href="#">{{ SiteName }}</a>
     </div>
     <ul class="nav navbar-nav" ng-repeat="page in pages | orderBy:page.priority">
-      <li ng-class="{ active: isActive('page.slug')}"><a href="/#!/{{ page.slug }}">{{ page.name }}</a></li>
+      <li ng-class="{ active: isActive('/' + page.slug)}"><a href="/#!/{{ page.slug }}">{{ page.name }}</a></li>
     </ul>
   </div>
 </nav>
