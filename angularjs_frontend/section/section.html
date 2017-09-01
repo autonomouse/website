@@ -1,9 +1,6 @@
 <h1>{{ page }}</h1>
 
-<div class="jumbotron" ng-repeat="section in sections">
+<div class="jumbotron" ng-repeat="section in sections | orderBy:section.priority">
     <h1 class="display-3">{{ section.title }}</h1>
     <p>{{ section }}</p>
 </div>
-
-
-<!-- | orderBy:section.priority -->
