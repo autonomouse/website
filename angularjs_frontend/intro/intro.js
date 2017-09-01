@@ -5,6 +5,7 @@ app.controller('controller', [
 
         $scope.reload = function () {
             var response = StatementService.query();
+            //var response = StatementService.get({'section.name': 'About'});
             if (angular.isUndefined($scope.statements)){
                 $scope.statements = response;
             } else{

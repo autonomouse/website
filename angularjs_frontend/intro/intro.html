@@ -1,0 +1,5 @@
+
+<div class="jumbotron" ng-repeat="statement in statements | orderBy:statement.priority">
+    <h1 class="display-3">{{ statement.title }}</h1>
+    <p>{{ statement.text }}</p>
+  </div>

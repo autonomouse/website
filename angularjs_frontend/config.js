@@ -4,10 +4,12 @@ var app = angular.module('App', [
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
-        .when('/', {
-            //templateUrl: 'static/admin/admin.html',
-            templateUrl: 'admin.html',
+        .when('/intro', {
+            templateUrl: 'intro/intro.html',
             controller: 'controller',
             controllerAs:'controller'
         })
+        .otherwise({
+            redirectTo: '/intro'
+        });
 }]);
