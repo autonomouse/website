@@ -17,7 +17,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">{{ SiteName }}</a>
+      <a class="navbar-brand" href="/#!/about">{{ SiteName }}</a>
     </div>
     <ul class="nav navbar-nav" ng-repeat="page in pages | orderBy:page.priority">
       <li ng-class="{ active: isActive('/' + page.slug)}"><a href="/#!/{{ page.slug }}">{{ page.name }}</a></li>
@@ -40,8 +40,7 @@
 <script src="config.js"></script>
 <script src="factory.js"></script>
 <script src="main_controller.js"></script>
-<script src="intro/intro.js"></script>
-<script src="posts/posts.js"></script>
+<script src="section/section.js"></script>
 
 </body>
 </html>

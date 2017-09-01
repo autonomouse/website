@@ -1,24 +1,19 @@
 
 app.controller('main_controller', [
-    '$scope', 'PageService', '$location', '$q', '$rootScope',
-    function($scope, PageService, $location, $q, $rootScope) {
+    '$scope', 'PageService', '$location', '$q', '$routeParams',
+    function($scope, PageService, $location, $q, $routeParams) {
 
         $scope.SiteName = "Darren Hoyland";
 
         var response = PageService.query();
-        if (angular.isUndefined($scope.pages)){
-            $scope.pages = response;
-        } else{
-            $q.all([response.$promise]).then(function(data) {
-                $scope.pages = data[0];
-            });
-        };
+        $q.all([response.$promise]).then(function([data]) {
+            $scope.pages = data;
+        });
 
         $scope.isActive = function (viewLocation) {
               return viewLocation === $location.path();
         };
 
-        $rootScope.page = $location.path();
     }
 ]);
 
