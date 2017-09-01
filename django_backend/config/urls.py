@@ -23,6 +23,7 @@ from api import views
 router = routers.DefaultRouter()
 router.register(r'statement', views.StatementViewSet)
 router.register(r'section', views.SectionViewSet)
+router.register(r'page', views.PageViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
