@@ -1,5 +1,5 @@
 
-app.controller('controller', [
+app.controller('intro_controller', [
     '$scope', 'StatementService', '$interval', '$q',
     function($scope, StatementService, $interval, $q) {
 

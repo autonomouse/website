@@ -21,7 +21,7 @@ class SectionViewSet(viewsets.ModelViewSet):
     queryset = models.Section.objects.all()
     serializer_class = serializers.SectionSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('uuid', 'name', 'page__name', 'page__uuid', )
+    filter_fields = ('uuid', 'name', 'page__name', 'page__slug', 'page__uuid', )
 
 
 class StatementViewSet(viewsets.ModelViewSet):

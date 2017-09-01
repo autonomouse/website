@@ -1,6 +1,7 @@
 from django.db import models
 from uuid import uuid4
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 
 class TimeStampedBaseModel(models.Model):
@@ -43,6 +44,11 @@ class Page(TimeStampedBaseModel):
         blank=False,
         null=False,
         help_text="Reverse order which pages appear in the UI (0 first).")
+    slug = models.SlugField(default=None, blank=True, null=True, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Page, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.uuid

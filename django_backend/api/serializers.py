@@ -6,7 +6,7 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Page
-        fields = ('uuid', 'name')
+        fields = ('uuid', 'name', 'slug')
 
 
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
