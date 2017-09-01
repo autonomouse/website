@@ -1,0 +1,7 @@
+<section ng-repeat="section in sections | orderBy:section.priority">
+    <h1>{{ section.name }}</h1>
+    <div class="jumbotron" ng-repeat="statement in statements[section.name] | orderBy:statement.priority">
+        <h2>{{ statement.title }}</h2>
+        <p>{{ statement.text }}</p>
+    </div>
+</section>
