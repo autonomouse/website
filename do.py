@@ -78,7 +78,7 @@ class TaskBase():
     def install_os_deps(self):
         print("Installing dependencies via apt")
         deps = ["python3-pip"]
-        cmd = ["sudo", "apt", "install"]
+        cmd = ["sudo", "apt", "--yes", "install"]
         cmd.extend(deps)
         return check_output(cmd)
 
@@ -93,6 +93,12 @@ class TaskBase():
         cmd = ["yarn", "install", "--modules-folder",
                "angularjs_frontend/static/node_modules"]
         return check_output(cmd)
+
+    def serve_prep(self):
+        self.manage(["collectstatic", "--noinput"])
+        self.manage(["makemigrations"])
+        self.manage(["migrate"])
+
 
 
 class Tasks(TaskBase):
@@ -117,10 +123,13 @@ class Tasks(TaskBase):
               application, filetype))
 
     def runserver(self):
-        self.manage(["collectstatic", "--noinput"])
-        self.manage(["makemigrations"])
-        self.manage(["migrate"])
+        self.serve_prep()
         self.manage(["runserver"])
+
+    def run(self):
+        self.serve_prep()
+        os.chdir("django_backend")
+        check_output(["gunicorn3", "config.wsgi"]) #  -b 127.0.0.1:8100
 
 
 if __name__ == "__main__":
