@@ -126,7 +126,7 @@ class Tasks(TaskBase):
         self.serve_prep()
         self.manage(["runserver"])
 
-    def run(self):
+    def rungunicorn(self):
         self.serve_prep()
         os.chdir("django_backend")
         check_output(["gunicorn3", "config.wsgi"]) #  -b 127.0.0.1:8100
