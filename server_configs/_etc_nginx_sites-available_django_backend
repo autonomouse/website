@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name 127.0.0.1;
+    server_name api.localhost;
 
     location /static/ {
         root /home/darren/Repositories/Personal_Projects/website/django_backend/static;
@@ -10,4 +10,5 @@ server {
         include proxy_params;
         proxy_pass http://unix:/home/darren/Repositories/Personal_Projects/website/django_backend.sock;
     }
+
 }

@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    server_name localhost;
+
+	index index.html index.htm index.nginx-debian.html;
+
+    location /static/ {
+        root /home/darren/Repositories/Personal_Projects/website/angularjs_frontend/static;
+    }
+
+    location / {
+        add_header 'Access-Control-Allow-Origin' *;
+		root /home/darren/Repositories/Personal_Projects/website/angularjs_frontend;
+        try_files $uri $uri/ /index.html = 404;
+    }
+
+}
