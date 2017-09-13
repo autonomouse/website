@@ -5,8 +5,8 @@ After=network.target
 [Service]
 User=darren
 Group=www-data
-WorkingDirectory=/home/darren/Repositories/Personal_Projects/website/django_backend
-ExecStart=/usr/bin/python3 /usr/bin/gunicorn3 config.wsgi -b 127.0.0.1:8999  --bind unix:/home/darren/Repositories/Personal_Projects/website/django_backend.sock
+WorkingDirectory=/var/www/django_backend/
+ExecStart=/usr/bin/python3 /usr/bin/gunicorn3 config.wsgi -b 127.0.0.1:8999  --bind unix:/var/www/django_backend/django_backend.sock
 
 [Install]
 WantedBy=multi-user.target
